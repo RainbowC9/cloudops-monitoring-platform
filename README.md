@@ -304,46 +304,48 @@ INC-2026-0001
 
 ## Current Features
 
-The project is currently in its foundation stage.
+The project is currently in its database foundation stage.
 
 Completed:
 
-* [x] Repository initialization
-* [x] FastAPI project foundation
-* [x] Root API endpoint
-* [x] Health check endpoint
-* [x] Interactive FastAPI API documentation
-* [x] Environment configuration template
-* [x] Git ignore configuration
-* [x] Initial architecture documentation
-* [x] Project development roadmap
+- [x] Repository initialization
+- [x] FastAPI project foundation
+- [x] Application health endpoint
+- [x] Application readiness endpoint
+- [x] Interactive FastAPI API documentation
+- [x] Environment configuration
+- [x] PostgreSQL database setup
+- [x] SQLAlchemy integration
+- [x] Psycopg PostgreSQL driver
+- [x] Database connection validation
+- [x] Alembic migration environment
+- [x] Initial architecture documentation
+- [x] Project development roadmap
 
 Planned:
 
-* [ ] PostgreSQL integration
-* [ ] SQLAlchemy setup
-* [ ] Alembic database migrations
-* [ ] Database schema
-* [ ] Authentication
-* [ ] Role-based permissions
-* [ ] Server inventory
-* [ ] Monitoring engine
-* [ ] Prometheus integration
-* [ ] Node Exporter integration
-* [ ] Monitoring dashboard
-* [ ] Incident management
-* [ ] Incident timeline
-* [ ] Alert rules
-* [ ] Automatic incident creation
-* [ ] Discord notifications
-* [ ] Docker containerization
-* [ ] Linux VPS deployment
-* [ ] Nginx reverse proxy
-* [ ] HTTPS configuration
-* [ ] Automated tests
-* [ ] GitHub Actions
-* [ ] CI/CD
-* [ ] Production release
+- [ ] Initial database schema
+- [ ] Initial Alembic schema migration
+- [ ] Authentication
+- [ ] Role-based permissions
+- [ ] Server inventory
+- [ ] Monitoring engine
+- [ ] Prometheus integration
+- [ ] Node Exporter integration
+- [ ] Monitoring dashboard
+- [ ] Incident management
+- [ ] Incident timeline
+- [ ] Alert rules
+- [ ] Automatic incident creation
+- [ ] Discord notifications
+- [ ] Docker containerization
+- [ ] Linux VPS deployment
+- [ ] Nginx reverse proxy
+- [ ] HTTPS configuration
+- [ ] Automated tests
+- [ ] GitHub Actions
+- [ ] CI/CD
+- [ ] Production release
 
 ---
 
@@ -355,27 +357,66 @@ Planned:
 GET /
 ```
 
+Returns basic application information.
+
 Example response:
 
 ```json
 {
   "name": "CloudOps",
+  "environment": "development",
   "status": "running",
   "version": "0.1.0"
 }
 ```
 
-### Health Check
+### Liveness Check
 
 ```http
 GET /health
 ```
 
+Confirms that the CloudOps application is running.
+
 Example response:
 
 ```json
 {
-  "status": "healthy"
+  "status": "healthy",
+  "application": "CloudOps",
+  "version": "0.1.0"
+}
+```
+
+### Readiness Check
+
+```http
+GET /ready
+```
+
+Confirms that CloudOps is ready to serve requests and can successfully connect to PostgreSQL.
+
+Example response:
+
+```json
+{
+  "status": "ready",
+  "database": "connected",
+  "application": "CloudOps",
+  "version": "0.1.0"
+}
+```
+
+If the database is unavailable, the endpoint returns HTTP `503 Service Unavailable`.
+
+Example response:
+
+```json
+{
+  "status": "not_ready",
+  "database": "unavailable",
+  "application": "CloudOps",
+  "version": "0.1.0"
 }
 ```
 
@@ -383,20 +424,26 @@ Example response:
 
 ## API Documentation
 
-FastAPI automatically provides interactive API documentation during development.
+FastAPI provides interactive API documentation during development.
 
-After starting the application, visit:
+Swagger UI:
 
 ```text
 http://127.0.0.1:8000/docs
 ```
 
-Swagger UI can be used to inspect and test available API endpoints.
-
-Alternative API documentation is available at:
+ReDoc:
 
 ```text
 http://127.0.0.1:8000/redoc
+```
+
+The current API includes:
+
+```text
+GET /
+GET /health
+GET /ready
 ```
 
 ---
