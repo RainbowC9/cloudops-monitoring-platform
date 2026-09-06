@@ -1,18 +1,16 @@
 from logging.config import fileConfig
-
 from alembic import context
 from sqlalchemy import engine_from_config, pool
-
 from app.config import settings
 from app.database import Base
 
+# Import all SQLAlchemy models so Alembic can detect them.
+import app.models  # noqa: F401
 
 config = context.config
 
-
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
-
 
 if not settings.database_url:
     raise RuntimeError(
@@ -20,23 +18,18 @@ if not settings.database_url:
         "Add it to your local .env file."
     )
 
-
 config.set_main_option(
     "sqlalchemy.url",
     settings.database_url.replace("%", "%%"),
 )
 
-
-# SQLAlchemy model metadata is used by Alembic
-# when generating migrations.
 target_metadata = Base.metadata
-
 
 def run_migrations_offline() -> None:
     """
-    Run migrations without creating a database connection.
+    Run migrations without establishing
+    a live database connection.
     """
-
     url = config.get_main_option("sqlalchemy.url")
 
     context.configure(
