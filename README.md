@@ -304,7 +304,7 @@ INC-2026-0001
 
 ## Current Features
 
-The project is currently in its database foundation stage.
+The project is currently in its database schema stage.
 
 Completed:
 
@@ -319,23 +319,28 @@ Completed:
 - [x] Psycopg PostgreSQL driver
 - [x] Database connection validation
 - [x] Alembic migration environment
-- [x] Initial architecture documentation
+- [x] Initial SQLAlchemy database models
+- [x] Database relationships
+- [x] Initial Alembic schema migration
+- [x] Initial PostgreSQL schema
+- [x] Default role seeding
+- [x] Database schema documentation
+- [x] Project architecture documentation
 - [x] Project development roadmap
 
 Planned:
 
-- [ ] Initial database schema
-- [ ] Initial Alembic schema migration
 - [ ] Authentication
+- [ ] Password hashing
 - [ ] Role-based permissions
-- [ ] Server inventory
+- [ ] Server inventory API
 - [ ] Monitoring engine
 - [ ] Prometheus integration
 - [ ] Node Exporter integration
 - [ ] Monitoring dashboard
-- [ ] Incident management
+- [ ] Incident management API
 - [ ] Incident timeline
-- [ ] Alert rules
+- [ ] Alert rules API
 - [ ] Automatic incident creation
 - [ ] Discord notifications
 - [ ] Docker containerization
@@ -642,38 +647,55 @@ http://127.0.0.1:8000/health
 
 ## Database Design
 
-The planned application database will contain tables such as:
+CloudOps currently uses PostgreSQL with SQLAlchemy and Alembic.
+
+The initial application schema contains:
 
 ```text
-users
 roles
+users
 servers
 services
 health_checks
-incidents
-incident_events
 alert_rules
 alerts
+incidents
+incident_events
 audit_logs
 ```
 
-Planned relationships:
+High-level relationship:
 
 ```text
+Role
+ |
+ v
+User
+ |
+ +--------------------+
+ |                    |
+ v                    v
+Incidents        Incident Events
+ |
+ v
 Server
-  |
-  |--- Health Checks
-  |
-  |--- Services
-  |
-  |--- Alerts
-  |
-  `--- Incidents
-          |
-          `--- Incident Events
+ |
+ +------------+-------------+-------------+
+ |            |             |             |
+ v            v             v             v
+Services   Health Checks Alert Rules    Alerts
+                                         |
+                                         v
+                                      Incident
 ```
 
-Database implementation will use PostgreSQL with SQLAlchemy and Alembic migrations.
+Detailed database documentation is available in:
+
+```text
+docs/database-schema.md
+```
+
+Database changes are managed through Alembic migrations.
 
 ---
 
@@ -943,6 +965,7 @@ Current documentation:
 docs/
 ├── architecture.md
 └── project-plan.md
+└── database-schema.md
 ```
 
 Planned documentation:
@@ -950,6 +973,7 @@ Planned documentation:
 ```text
 docs/
 ├── architecture.md
+├── database-schema.md
 ├── project-plan.md
 ├── deployment.md
 └── screenshots/
