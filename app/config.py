@@ -11,6 +11,8 @@ class Settings(BaseSettings):
 
     database_url: Optional[str] = None
     secret_key: Optional[str] = None
+    jwt_algorithm: str = "HS256"
+    access_token_expire_minutes: int = 30
 
     model_config = SettingsConfigDict(
         env_file=".env",
