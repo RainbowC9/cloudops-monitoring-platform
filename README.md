@@ -327,12 +327,20 @@ Completed:
 - [x] Database schema documentation
 - [x] Project architecture documentation
 - [x] Project development roadmap
+- [x] Password hashing using Argon2
+- [x] JWT authentication
+- [x] Login endpoint
+- [x] Current-user endpoint
+- [x] Role-based access control
+- [x] Admin permission level
+- [x] Engineer permission level
+- [x] Viewer permission level
+- [x] Initial Admin user setup
+- [x] Authentication unit tests
+- [x] Authentication documentation
 
 Planned:
 
-- [ ] Authentication
-- [ ] Password hashing
-- [ ] Role-based permissions
 - [ ] Server inventory API
 - [ ] Monitoring engine
 - [ ] Prometheus integration
@@ -423,6 +431,65 @@ Example response:
   "application": "CloudOps",
   "version": "0.1.0"
 }
+```
+
+### Authentication
+
+#### Login
+
+```http
+POST /api/auth/login
+```
+
+Authenticates a CloudOps user and returns a JWT access token.
+
+#### Current User
+
+```http
+GET /api/auth/me
+```
+
+Returns information about the authenticated user.
+
+Requires a valid bearer token.
+
+#### Viewer Access Test
+
+```http
+GET /api/auth/access/viewer
+```
+
+Accessible by:
+
+```text
+Admin
+Engineer
+Viewer
+```
+
+#### Engineer Access Test
+
+```http
+GET /api/auth/access/engineer
+```
+
+Accessible by:
+
+```text
+Admin
+Engineer
+```
+
+#### Admin Access Test
+
+```http
+GET /api/auth/access/admin
+```
+
+Accessible only by:
+
+```text
+Admin
 ```
 
 ---
@@ -964,6 +1031,7 @@ Current documentation:
 ```text
 docs/
 ├── architecture.md
+├── authentication.md
 └── project-plan.md
 └── database-schema.md
 ```
@@ -973,6 +1041,7 @@ Planned documentation:
 ```text
 docs/
 ├── architecture.md
+├── authentication.md
 ├── database-schema.md
 ├── project-plan.md
 ├── deployment.md
