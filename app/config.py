@@ -7,7 +7,7 @@ class Settings(BaseSettings):
     app_name: str = "CloudOps"
     app_env: str = "development"
     app_debug: bool = True
-    app_version: str = "0.1.0"
+    app_version: str = "0.2.0"
 
     database_url: Optional[str] = None
     secret_key: Optional[str] = None
