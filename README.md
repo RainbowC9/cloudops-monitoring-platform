@@ -3,7 +3,7 @@
 Cloud infrastructure monitoring and incident management platform built with Python, FastAPI, PostgreSQL, Prometheus, Docker, and Linux.
 
 > 🚧 **Project Status:** Active Development
-> Current Version: `v0.1.0`
+> Current Version: `v0.2.0`
 
 ---
 
@@ -363,6 +363,60 @@ Planned:
 ---
 
 ## Current API
+
+### Server Inventory
+
+#### Register Server
+
+```http
+POST /api/servers
+```
+
+Available to Admin and Engineer users.
+
+#### List Servers
+
+```http
+GET /api/servers
+```
+
+Supports pagination, search, status filtering, environment filtering and inactive-server visibility.
+
+#### Server Inventory Summary
+
+```http
+GET /api/servers/summary
+```
+
+Provides dashboard-ready server inventory metrics.
+
+#### Server Details
+
+```http
+GET /api/servers/{server_id}
+```
+
+#### Update Server
+
+```http
+PUT /api/servers/{server_id}
+```
+
+Available to Admin and Engineer users.
+
+#### Deactivate Server
+
+```http
+PATCH /api/servers/{server_id}/deactivate
+```
+
+Available only to Admin users.
+
+Detailed documentation:
+
+```text
+docs/server-inventory.md
+```
 
 ### Root Endpoint
 
@@ -1032,8 +1086,9 @@ Current documentation:
 docs/
 ├── architecture.md
 ├── authentication.md
-└── project-plan.md
-└── database-schema.md
+├── project-plan.md
+├── database-schema.md
+└── server-inventory.md
 ```
 
 Planned documentation:
@@ -1044,6 +1099,7 @@ docs/
 ├── authentication.md
 ├── database-schema.md
 ├── project-plan.md
+├── server-inventory.md
 ├── deployment.md
 └── screenshots/
 ```
