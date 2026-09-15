@@ -2,8 +2,8 @@
 
 Cloud infrastructure monitoring and incident management platform built with Python, FastAPI, PostgreSQL, Prometheus, Docker, and Linux.
 
-> 🚧 **Project Status:** Active Development
-> Current Version: `v0.2.0`
+> **Project Status:** Active Development
+> Current Version: `v0.3.0`
 
 ---
 
@@ -338,11 +338,22 @@ Completed:
 - [x] Initial Admin user setup
 - [x] Authentication unit tests
 - [x] Authentication documentation
+- [x] Service inventory API
+- [x] HTTP service monitoring
+- [x] TCP port monitoring
+- [x] Health-check response-time tracking
+- [x] Health-check history
+- [x] Latest service health endpoint
+- [x] Monitoring summary API
+- [x] Service health status synchronization
+- [x] Health-check RBAC
+- [x] Health-check audit logging
+- [x] Health-check automated tests
+- [x] Health-check engine documentation
 
 Planned:
 
 - [ ] Server inventory API
-- [ ] Monitoring engine
 - [ ] Prometheus integration
 - [ ] Node Exporter integration
 - [ ] Monitoring dashboard
@@ -363,6 +374,48 @@ Planned:
 ---
 
 ## Current API
+
+### Service Inventory
+
+```http
+POST /api/services
+GET /api/services
+GET /api/services/{service_id}
+PUT /api/services/{service_id}
+PATCH /api/services/{service_id}/deactivate
+```
+
+### Health Checks
+
+Run a service health check:
+
+```http
+POST /api/health-checks/services/{service_id}/run
+```
+
+View health-check history:
+
+```http
+GET /api/health-checks
+```
+
+View monitoring summary:
+
+```http
+GET /api/health-checks/summary
+```
+
+View latest service result:
+
+```http
+GET /api/health-checks/services/{service_id}/latest
+```
+
+Detailed documentation:
+
+```text
+docs/health-check-engine.md
+```
 
 ### Server Inventory
 
@@ -625,6 +678,9 @@ cloudops-monitoring-platform/
 │
 ├── docs/
 │   ├── architecture.md
+│   ├── authentication.md
+│   ├── database-schema.md
+│   ├── health-check-engine.md
 │   ├── project-plan.md
 │   ├── deployment.md
 │   └── screenshots/
