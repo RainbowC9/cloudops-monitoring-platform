@@ -350,12 +350,20 @@ Completed:
 - [x] Health-check audit logging
 - [x] Health-check automated tests
 - [x] Health-check engine documentation
+- [x] Prometheus integration
+- [x] Prometheus HTTP API client
+- [x] Windows development metrics
+- [x] CPU utilization metrics
+- [x] Memory utilization metrics
+- [x] Disk utilization metrics
+- [x] Server metrics overview API
+- [x] Infrastructure metrics RBAC
+- [x] Prometheus integration tests
+- [x] Prometheus integration documentation
 
 Planned:
 
-- [ ] Server inventory API
-- [ ] Prometheus integration
-- [ ] Node Exporter integration
+- [ ] Linux Exporter integration
 - [ ] Monitoring dashboard
 - [ ] Incident management API
 - [ ] Incident timeline
@@ -374,6 +382,44 @@ Planned:
 ---
 
 ## Current API
+
+### Infrastructure Metrics
+
+Prometheus connectivity:
+
+```http
+GET /api/metrics/health
+```
+
+CPU usage:
+
+```http
+GET /api/metrics/servers/{server_id}/cpu
+```
+
+Memory usage:
+
+```http
+GET /api/metrics/servers/{server_id}/memory
+```
+
+Disk usage:
+
+```http
+GET /api/metrics/servers/{server_id}/disk
+```
+
+Infrastructure overview:
+
+```http
+GET /api/metrics/servers/{server_id}/overview
+```
+
+Detailed documentation:
+
+```text
+docs/prometheus-integration.md
+```
 
 ### Service Inventory
 
@@ -1156,6 +1202,7 @@ docs/
 ├── database-schema.md
 ├── project-plan.md
 ├── server-inventory.md
+├── prometheus-integration.md
 ├── deployment.md
 └── screenshots/
 ```
