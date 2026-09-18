@@ -11,6 +11,9 @@ from app.routers.servers import (
 from app.routers.services import (
     router as services_router,
 )
+from app.routers.metrics import (
+    router as metrics_router,
+)
 
 app = FastAPI(
     title=settings.app_name,
@@ -25,6 +28,7 @@ app.include_router(auth_router)
 app.include_router(servers_router)
 app.include_router(services_router)
 app.include_router(health_checks_router)
+app.include_router(metrics_router)
 
 @app.get("/")
 def root():
